@@ -1,5 +1,8 @@
 # 🤖 LightRAG with UI
 
+Author: Shanaka Fernando
+LinkedIn: https://www.linkedin.com/in/shanaka-qe/
+
 A powerful Retrieval-Augmented Generation (RAG) system that lets you chat with your documents using local AI models. Features a modern Streamlit web interface, automatic document processing, and support for multiple AI models via Ollama.
 
 ## 🚀 Features
@@ -115,7 +118,8 @@ lightrag-with-ui/
 └── documents/             # Documentation
     ├── user-guide.md      # Complete user guide
     ├── quick-reference.md # Quick reference card
-    └── troubleshooting.md # Troubleshooting guide
+    ├── troubleshooting.md # Troubleshooting guide
+    └── code-walkthrough.md # Code architecture guide
 ```
 
 ## 📚 Documentation
@@ -123,6 +127,7 @@ lightrag-with-ui/
 - **📖 [Complete User Guide](documents/user-guide.md)** - Comprehensive guide for beginners
 - **⚡ [Quick Reference](documents/quick-reference.md)** - Commands and shortcuts for advanced users  
 - **🔧 [Troubleshooting Guide](documents/troubleshooting.md)** - Solutions to common issues
+- **🔍 [Code Walkthrough](documents/code-walkthrough.md)** - Detailed code architecture and implementation guide
 
 ## 🎯 Usage
 
