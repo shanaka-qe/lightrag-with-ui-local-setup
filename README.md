@@ -8,6 +8,7 @@ A minimalist implementation of **HKUDS LightRAG** - a powerful Retrieval-Augment
 ## 🚀 Features
 
 - **🧠 Knowledge Graph**: Automatic entity extraction and relationship mapping using LightRAG
+- **🕸️ Interactive Graph Visualization**: See your knowledge graph with beautiful, interactive visualizations
 - **🤖 Multiple AI Models**: Support for Gemma, Llama, Mistral, and more via Ollama
 - **📚 Smart Document Processing**: Automatic ingestion from PDFs, TXT, DOCX, CSV files
 - **🔍 4 Query Modes**: Naive, Local, Global, and Hybrid knowledge graph retrieval
@@ -32,6 +33,10 @@ curl -fsSL https://ollama.ai/install.sh | sh
 
 # Windows
 # Download from https://ollama.ai/download
+
+# Pull required models
+ollama pull gemma3:12b         # LLM for text generation
+ollama pull nomic-embed-text   # Embeddings for semantic search
 ```
 
 ## 🚀 Why This Project?
@@ -41,6 +46,38 @@ curl -fsSL https://ollama.ai/install.sh | sh
 - **📦 Self-Contained**: Everything you need in one package
 - **🛠️ Highly Customizable**: Support for multiple AI models and configurations
 - **📚 Document Smart**: Understands context and relationships in your documents
+
+## 🧠 What is LightRAG?
+
+**LightRAG** is an advanced RAG system that goes beyond simple vector search by building **knowledge graphs** from your documents:
+
+### **How It Works:**
+1. **📄 Document Chunking**: Breaks documents into logical pieces
+2. **🔍 Entity Extraction**: Identifies people, organizations, locations, concepts
+3. **🔗 Relationship Mapping**: Discovers connections between entities
+4. **🕸️ Knowledge Graph**: Builds a graph structure (nodes + edges)
+5. **🎯 Semantic Search**: Uses vector embeddings (768-dim) for similarity
+6. **💡 Smart Retrieval**: Combines graph traversal + vector search
+
+### **Query Modes:**
+- **Naive**: Simple vector similarity (fast)
+- **Local**: Uses local graph context (entity-specific)
+- **Global**: Uses global graph structure (summaries, themes)
+- **Hybrid**: Combines local + global (⭐ recommended)
+
+### **Example:**
+```
+Document: "John Smith works at Microsoft in Seattle..."
+
+LightRAG Creates:
+- Entities: [John Smith, Microsoft, Seattle]
+- Relationships:
+  • John Smith --[works_at]--> Microsoft
+  • Microsoft --[located_in]--> Seattle
+
+Query: "Where does John work?"
+Answer: Uses graph to find: John Smith → works_at → Microsoft (in Seattle)
+```
 
 ## 🛠️ Quick Setup
 

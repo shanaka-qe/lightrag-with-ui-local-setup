@@ -38,11 +38,10 @@ STREAMLIT_CONFIG = {
 # Directory paths
 DATA_DIR = PROJECT_ROOT / "data"
 INGEST_DIR = DATA_DIR / "ingest"
-MODELS_DIR = PROJECT_ROOT / "models"
 LOGS_DIR = PROJECT_ROOT / "logs"
 
 # Create directories if they don't exist
-for directory in [DATA_DIR, INGEST_DIR, MODELS_DIR, LOGS_DIR]:
+for directory in [DATA_DIR, INGEST_DIR, LOGS_DIR]:
     directory.mkdir(exist_ok=True)
 
 # Available Ollama models (install with: ollama pull <model_name>)

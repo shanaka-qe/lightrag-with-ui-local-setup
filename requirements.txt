@@ -17,6 +17,11 @@ PyPDF2>=3.0.0
 python-docx>=0.8.11
 pandas>=1.5.0
 
+# Knowledge graph visualization
+networkx>=3.0
+matplotlib>=3.5.0
+pyvis>=0.3.0
+
 # Development dependencies (optional)
 # pytest>=6.0.0
 # black>=22.0.0

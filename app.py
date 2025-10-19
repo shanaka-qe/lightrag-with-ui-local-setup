@@ -79,24 +79,32 @@ if st.session_state.rag_system is None:
     if initialize_rag_system():
         st.session_state.rag_system.setup_model("gemma3:12b")
         st.session_state.model_loaded = True
-        # Auto-ingest documents
-        try:
-            st.session_state.rag_system.ingest_documents()
-            st.session_state.documents_ingested = True
-        except Exception as e:
-            st.error(f"Failed to auto-ingest documents: {e}")
+        # Note: Document ingestion is manual via button due to processing time
 
 
 def main():
     """Main Streamlit application"""
     
     # Title and description
-    st.title("🤖 RAG System with Local LLM")
+    st.title("🤖 LightRAG Implementation with Local LLM")
     st.markdown("**Retrieval-Augmented Generation using LightRAG and Gemma 2 12B**")
     
     # Sidebar for controls
     with st.sidebar:
-        st.header("⚙️ Controls")    
+        st.header("⚙️ Controls")
+        
+        # Ingest Documents button
+        if st.button("📚 Ingest Documents", disabled=not st.session_state.model_loaded):
+            with st.spinner("Ingesting documents... This may take several minutes."):
+                try:
+                    st.session_state.rag_system.ingest_documents()
+                    st.session_state.documents_ingested = True
+                    st.success("✅ Documents ingested successfully!")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"❌ Failed to ingest documents: {e}")
+        
+        st.markdown("---")
         
         # System status
         st.subheader("📊 System Status")
@@ -199,6 +207,60 @@ def main():
         if st.button("🗑️ Clear History"):
             st.session_state.chat_history = []
             st.rerun()
+    
+    # Knowledge Graph Visualization
+    st.header("🕸️ Knowledge Graph Visualization")
+    
+    if st.session_state.rag_system:
+        # Get graph statistics
+        graph_stats = st.session_state.rag_system.get_graph_stats()
+        
+        if graph_stats.get("exists"):
+            # Display graph statistics
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Entities", graph_stats.get("nodes", 0))
+            with col2:
+                st.metric("Relationships", graph_stats.get("edges", 0))
+            with col3:
+                st.metric("Density", f"{graph_stats.get('density', 0):.3f}")
+            with col4:
+                st.metric("Components", graph_stats.get("connected_components", 0))
+            
+            # Add refresh button
+            if st.button("🔄 Refresh Graph Visualization"):
+                st.rerun()
+            
+            # Generate and display visualization
+            with st.spinner("Generating interactive graph visualization..."):
+                graph_html = st.session_state.rag_system.get_graph_visualization()
+                
+                if graph_html:
+                    st.subheader("Interactive Knowledge Graph")
+                    st.info("💡 **Tip:** Click and drag nodes to explore. Hover over nodes and edges to see details.")
+                    
+                    # Display the interactive graph
+                    import streamlit.components.v1 as components
+                    components.html(graph_html, height=650, scrolling=True)
+                    
+                    # Legend
+                    st.markdown("""
+                    **Legend:**
+                    - 🔴 **Red**: People/Persons
+                    - 🔵 **Teal**: Organizations
+                    - 🟦 **Blue**: Technologies
+                    - 🟧 **Orange**: Projects
+                    - 🟩 **Green**: Locations
+                    - ⚫ **Gray**: Other entities
+                    """)
+                else:
+                    st.warning("Unable to generate graph visualization. Please ensure documents have been ingested.")
+        else:
+            st.info("📊 No knowledge graph available yet. Ingest documents to build the graph!")
+            if graph_stats.get("message"):
+                st.write(graph_stats["message"])
+    else:
+        st.warning("RAG system not initialized")
     
     # Document management
     st.header("📁 Document Management")
