@@ -1,23 +1,25 @@
-# RAG System with Local LLM
+# 🤖 LightRAG with UI
 
-A simple, modular Python project that uses LightRAG with a local Gemma 2 12B model. Features a Streamlit web interface and command-line access.
+A powerful Retrieval-Augmented Generation (RAG) system that lets you chat with your documents using local AI models. Features a modern Streamlit web interface, automatic document processing, and support for multiple AI models via Ollama.
 
 ## 🚀 Features
 
-- **Local LLM**: Uses Gemma 2 12B model locally (configurable)
-- **LightRAG Integration**: Advanced RAG capabilities with knowledge graphs
-- **Streamlit UI**: Web interface for easy interaction
-- **Document Ingestion**: Automatic processing from `data/ingest/` folder
-- **Modular Design**: Clean, simple code structure
-- **Environment Configuration**: Easy setup with `.env` file
+- **🤖 Multiple AI Models**: Support for Gemma, Llama, Mistral, and more via Ollama
+- **📚 Smart Document Processing**: Automatic ingestion from PDFs, TXT, DOCX, CSV files
+- **💬 Natural Conversations**: Ask questions about your documents in plain English
+- **🌐 Modern Web Interface**: Beautiful Streamlit UI with real-time chat
+- **🔒 Complete Privacy**: Everything runs locally - no data leaves your machine
+- **⚡ Fast Setup**: Automated installation and configuration
+- **🎯 Intelligent Retrieval**: Smart document search and context understanding
+- **📱 Cross-Platform**: Works on macOS, Windows, and Linux
 
 ## 📋 Requirements
 
-- Python 3.13+
-- pip (Python package manager)
+- **Python 3.12** (required)
 - **Ollama** (for local LLM models)
-- 8GB+ RAM (for Gemma 2 12B)
-- 4GB+ disk space for model files
+- **8GB+ RAM** (for recommended models)
+- **10GB+ disk space** for models and data
+- **Internet connection** (for initial setup and model downloads)
 
 ### Install Ollama:
 ```bash
@@ -28,12 +30,13 @@ curl -fsSL https://ollama.ai/install.sh | sh
 # Download from https://ollama.ai/download
 ```
 
-## 🚀 Why pip?
+## 🚀 Why This Project?
 
-- **🔒 Reliable**: Standard Python package manager
-- **🎯 Simple**: One command to install and run
-- **📦 Compatible**: Works with all Python environments
-- **🛠️ Well-supported**: Handles complex dependencies like tiktoken
+- **🔒 Privacy-First**: All processing happens locally on your machine
+- **🎯 Easy to Use**: Simple web interface - no technical knowledge required
+- **📦 Self-Contained**: Everything you need in one package
+- **🛠️ Highly Customizable**: Support for multiple AI models and configurations
+- **📚 Document Smart**: Understands context and relationships in your documents
 
 ## 🛠️ Quick Setup
 
@@ -42,11 +45,6 @@ curl -fsSL https://ollama.ai/install.sh | sh
 **For macOS/Linux:**
 ```bash
 ./setup/setup.sh
-```
-
-**For Windows:**
-```cmd
-setup/setup.bat
 ```
 
 ### Manual Setup
@@ -97,24 +95,34 @@ setup/setup.bat
 
 ```
 lightrag-with-ui/
-├── main.py                 # Main application launcher
+├── main.py                 # Application entry point
 ├── app.py                  # Streamlit web interface
-├── simple_rag.py           # Core RAG system
-├── ollama_llm.py           # Ollama LLM integration
-├── config/
-│   └── settings.py        # Configuration management
-├── utils/
-│   └── document_ingestion.py  # Document processing utilities
+├── utils/                  # Core functionality
+│   ├── rag_system.py       # RAG system logic
+│   ├── llm_provider.py     # Ollama LLM integration
+│   └── document_ingestion.py # Document processing
+├── config/                 # Configuration
+│   └── settings.py         # Application settings
 ├── data/
 │   ├── ingest/            # Put your documents here (PDFs, TXT, etc.)
 │   └── rag_workspace/     # RAG system workspace
 ├── venv312/               # Python 3.12 virtual environment
 ├── requirements.txt       # Python dependencies
 ├── env.example            # Environment template
-└── setup/                 # Setup scripts
-    ├── setup_env.py       # Interactive environment setup
-    └── setup.sh           # Automated setup script
+├── setup/                 # Setup scripts
+│   ├── setup_env.py       # Interactive environment setup
+│   └── setup.sh           # Automated setup script
+└── documents/             # Documentation
+    ├── user-guide.md      # Complete user guide
+    ├── quick-reference.md # Quick reference card
+    └── troubleshooting.md # Troubleshooting guide
 ```
+
+## 📚 Documentation
+
+- **📖 [Complete User Guide](documents/user-guide.md)** - Comprehensive guide for beginners
+- **⚡ [Quick Reference](documents/quick-reference.md)** - Commands and shortcuts for advanced users  
+- **🔧 [Troubleshooting Guide](documents/troubleshooting.md)** - Solutions to common issues
 
 ## 🎯 Usage
 
@@ -128,10 +136,9 @@ lightrag-with-ui/
 2. **Open your browser to:** `http://localhost:8501`
 
 3. **Use the interface:**
-   - Click "Initialize RAG System"
-   - Click "Load Model" (downloads Gemma 2 12B on first run)
-   - Add documents to `data/ingest/` folder
-   - Click "Ingest Documents"
+   - System automatically initializes and loads the AI model
+   - Add documents to `data/ingest/` folder or use the upload feature
+   - Documents are automatically processed
    - Ask questions in the chat interface
 
 ### Command Line Interface
@@ -154,99 +161,115 @@ python main.py cli
 Edit `.env` file to customize:
 
 ```bash
-# LLM Configuration
-LLM_MODEL_NAME=gemma-2-12b          # Model to use
-LLM_CONTEXT_SIZE=4096               # Context window
-LLM_THREADS=4                       # CPU threads
-LLM_TEMPERATURE=0.7                 # Response creativity
+# AI Model Configuration
+LLM_MODEL_NAME=gemma3:12b           # Model to use
+LLM_HOST=http://localhost:11434     # Ollama server
+LLM_TEMPERATURE=0.7                 # Response creativity (0.0-1.0)
+LLM_MAX_TOKENS=512                  # Maximum response length
 
 # RAG Configuration
 RAG_WORKING_DIR=data/rag_workspace  # RAG data directory
-RAG_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+RAG_MAX_TOKEN=2000                  # Context length
+RAG_TIMEOUT=30                      # Query timeout
 
-# Streamlit Configuration
+# Web Interface
 STREAMLIT_PORT=8501                 # Web interface port
+STREAMLIT_HOST=localhost            # Web interface host
 ```
 
-## 🎯 Available Models (Ollama)
+## 🤖 Available AI Models
 
-Use `ollama list` to see your installed models. Popular options:
+The system supports any Ollama model. Popular options:
 
-- **Gemma 2 12B** (`gemma2:12b`) - Default, best performance
-- **Gemma 2 9B** (`gemma2:9b`) - Good balance
-- **Gemma 2 2B** (`gemma2:2b`) - Fastest, lower quality
-- **Llama 3.1 8B** (`llama3.1:8b`) - Good general purpose
-- **Llama 3.1 70B** (`llama3.1:70b`) - Best quality (needs lots of RAM)
-- **Mistral 7B** (`mistral:7b`) - Good balance
-- **CodeLlama 7B** (`codellama:7b`) - For code tasks
-- **Phi-3 3.8B** (`phi3:3.8b`) - Microsoft's efficient model
+### **Recommended Models:**
+- **`gemma3:12b`** - Default, best balance of quality and speed
+- **`gemma2:12b`** - High quality, good for complex tasks
+- **`llama3:8b`** - Fast, good general purpose
+- **`mistral:7b`** - Excellent for reasoning tasks
 
-### Install Models:
+### **Performance Models:**
+- **`gemma2:2b`** - Fastest, good for quick responses
+- **`llama3:70b`** - Highest quality (requires 40GB+ RAM)
+- **`codellama:7b`** - Specialized for code and technical documents
+
+### **Install Models:**
 ```bash
-# Install Gemma 2 12B (default)
-ollama pull gemma2:12b
+# Install recommended model
+ollama pull gemma3:12b
 
 # Install other models
-ollama pull llama3.1:8b
+ollama pull llama3:8b
 ollama pull mistral:7b
+ollama pull gemma2:2b  # For faster performance
 ```
 
 ## 🔧 Troubleshooting
 
-### Common Issues
+### **Quick Fixes:**
 
-1. **Model download fails:**
-   - Check internet connection
-   - Ensure sufficient disk space (4GB+)
+1. **"Model not found" error:**
+   ```bash
+   ollama pull gemma3:12b
+   ```
 
-2. **Out of memory:**
-   - Use smaller model: `gemma-2-2b`
-   - Reduce context size in `.env`
+2. **"Port 8501 already in use":**
+   ```bash
+   lsof -ti :8501 | xargs kill -9
+   ```
 
-3. **Slow performance:**
-   - Increase CPU threads in `.env`
-   - Use smaller model
+3. **"No documents available":**
+   - Add documents to `data/ingest/` folder
+   - Restart the application
 
-### Logs
+4. **Slow performance:**
+   - Use smaller model: `ollama pull gemma2:2b`
+   - Edit `.env`: `LLM_MODEL_NAME=gemma2:2b`
 
-Check `logs/` directory for detailed error messages.
+### **For detailed troubleshooting:**
+- 📖 See [Complete User Guide](documents/user-guide.md)
+- 🔧 See [Troubleshooting Guide](documents/troubleshooting.md)
 
 ## 🧪 Testing
 
 ```bash
-# Test the installation
-python test_installation.py
-
 # Test the system
 python main.py test
 
 # Test individual components
-python local_llama.py
-python simple_rag.py
+python -c "from utils.rag_system import SimpleRAG; print('✅ RAG system OK')"
+python -c "from utils.llm_provider import OllamaLLM; print('✅ LLM provider OK')"
 ```
 
-## 📚 API Reference
+## 🎯 Example Usage
 
-### RAGSystem Class
+### **Ask Questions About Your Documents:**
+```
+Q: "What is the main topic of this document?"
+A: "This document discusses the Phoenix Digital Transformation Initiative..."
 
-- `setup_model(model_name)` - Load LLM model
-- `ingest_documents()` - Process documents from ingest folder
-- `query(question, mode)` - Ask questions
-- `get_stats()` - Get system statistics
+Q: "What is the project budget?"
+A: "$2.4 million USD"
 
-### DocumentIngestion Class
+Q: "Who is the lead architect?"
+A: "Dr. Sarah Chen"
+```
 
-- `get_documents()` - Get all documents from ingest folder
-- `get_document_count()` - Count documents
-- `clear_ingest_folder()` - Clear all documents
+### **Supported Document Types:**
+- 📄 **Text files** (`.txt`, `.md`)
+- 📊 **PDF documents** (`.pdf`)
+- 📝 **Word documents** (`.docx`)
+- 📈 **CSV files** (`.csv`)
 
 ## 🎉 What's Next?
 
-- Add more model support
-- Implement document preprocessing
-- Add knowledge graph visualization
-- Support for multiple languages
+- 🔄 **Real-time document updates**
+- 📊 **Knowledge graph visualization**
+- 🌍 **Multi-language support**
+- 🔗 **API endpoints for integration**
+- 📱 **Mobile-friendly interface**
 
 ---
 
-**Simple, Fast, Local RAG! 🤖📚**
+**🤖 Chat with your documents like never before! 📚✨**
+
+*Built with ❤️ for the community*
