@@ -5,6 +5,9 @@
 
 A minimalist implementation of **HKUDS LightRAG** - a powerful Retrieval-Augmented Generation (RAG) system with **knowledge graph** support. Chat with your documents using local AI models powered by Ollama, featuring automatic entity extraction, relationship mapping, and intelligent semantic search.
 
+![Chat Interface](documents/chat-view.png)
+*Ask questions about your documents and get intelligent answers powered by local AI*
+
 ## 🏗️ System Architecture
 
 ```
@@ -92,19 +95,6 @@ A minimalist implementation of **HKUDS LightRAG** - a powerful Retrieval-Augment
 - **⚡ Semantic Search**: Vector embeddings for intelligent document retrieval
 - **📱 Cross-Platform**: Works on macOS, Windows, and Linux
 
-## 📸 Screenshots
-
-### Main Interface
-![Main UI Interface](documents/ui-view.png)
-*Clean, modern web interface with document management and system status*
-
-### Chat Interface
-![Chat Interface](documents/chat-view.png)
-*Interactive chat where you can ask questions about your documents*
-
-### Knowledge Graph Visualization
-![Knowledge Graph](documents/graph-view.png)
-*Interactive knowledge graph showing entities and relationships with color-coded nodes*
 
 ## 📋 Requirements
 
@@ -166,6 +156,9 @@ LightRAG Creates:
 Query: "Where does John work?"
 Answer: Uses graph to find: John Smith → works_at → Microsoft (in Seattle)
 ```
+
+![Knowledge Graph](documents/graph-view.png)
+*Interactive knowledge graph showing entities and relationships with color-coded nodes*
 
 ## 🛠️ Quick Setup
 
@@ -252,6 +245,9 @@ lightrag-with-ui/
 ## 🎯 Usage
 
 ### Web Interface
+
+![Main UI Interface](documents/ui-view.png)
+*Clean, modern web interface with document management and system status*
 
 1. **Start the web interface:**
    ```bash
