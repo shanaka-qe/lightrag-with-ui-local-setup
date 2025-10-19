@@ -5,6 +5,80 @@
 
 A minimalist implementation of **HKUDS LightRAG** - a powerful Retrieval-Augmented Generation (RAG) system with **knowledge graph** support. Chat with your documents using local AI models powered by Ollama, featuring automatic entity extraction, relationship mapping, and intelligent semantic search.
 
+## 🏗️ System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           🌐 STREAMLIT WEB INTERFACE                            │
+│                              (app.py - Port 8501)                               │
+└───────────────────────────────┬─────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           🎯 MAIN ORCHESTRATOR                                  │
+│                           (rag_system.py)                                       │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │
+│  │   📄 Document   │  │   🔍 Query      │  │   🕸️ Graph      │  │   🤖 LLM    │ │
+│  │   Ingestion     │  │   Engine        │  │   Visualizer    │  │   Provider  │ │
+│  │                 │  │                 │  │                 │  │             │ │
+│  │ • PDF/TXT/DOCX  │  │ • Ollama Direct │  │ • PyVis HTML    │  │ • Ollama    │ │
+│  │ • Multi-format  │  │ • Context Build │  │ • NetworkX      │  │ • Model Mgmt│ │
+│  │ • Content Extrac│  │ • Async Handle  │  │ • Color Coding  │  │ • API Calls │ │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────┘ │
+└─────────────────────────────┬───────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           🧠 HKUDS LIGHTRAG ENGINE                              │
+│                                                                                 │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │
+│  │   📚 Document   │  │   🔍 Entity     │  │   🔗 Relation   │  │   🕸️ Graph  │ │
+│  │   Chunking      │  │   Extraction    │  │   Mapping       │  │   Builder   │ │
+│  │                 │  │                 │  │                 │  │             │ │
+│  │ • Text Split    │  │ • People/Orgs   │  │ • Connections   │  │ • Nodes     │ │
+│  │ • Token Limits  │  │ • Locations     │  │ • Relationships │  │ • Edges     │ │
+│  │ • Overlap       │  │ • Concepts      │  │ • Dependencies  │  │ • Structure │ │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────┘ │
+└───────────────────────────────┬─────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           🎯 OLLAMA AI MODELS                                   │
+│                                                                                 │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │
+│  │   💬 LLM Model  │  │   🔍 Embedding  │  │   🌐 Local API  │  │   📊 Model  │ │
+│  │   (gemma3:12b)  │  │   (nomic-embed) │  │   (Port 11434)  │  │   Manager   │ │
+│  │                 │  │                 │  │                 │  │             │ │
+│  │ • Text Gen      │  │ • 768-dim Vectr.│  │ • REST API      │  │ • Pull/List │ │
+│  │ • Chat Complet  │  │ • Semantic Sear.│  │ • Streaming     │  │ • Status    │ │
+│  │ • Context Aware │  │ • Similarity    │  │ • Async Calls   │  │ • Config    │ │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           💾 DATA STORAGE                                       │
+│                                                                                 │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │
+│  │   📁 Ingest     │  │   🗄️ RAG        │  │   🕸️ Graph      │  │   📊 Stats  │ │
+│  │   Directory     │  │   Workspace     │  │   Files         │  │   & Logs    │ │
+│  │                 │  │                 │  │                 │  │             │ │
+│  │ • PDF/TXT/DOCX  │  │ • JSON Storage  │  │ • GraphML       │  │ • Metrics   │ │
+│  │ • User Uploads  │  │ • Document Index│  │ • Network Data  │  │ • Debug     │ │
+│  │ • Auto Process  │  │ • Entity Store  │  │ • Visualization │  │ • Monitoring│ │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+🔄 DATA FLOW:
+   Documents → Ingestion → LightRAG → Knowledge Graph → Query Engine → Ollama → Response
+   
+🎯 QUERY MODES:
+   • Naive: Simple vector similarity
+   • Local: Entity-specific context  
+   • Global: Graph structure analysis
+   • Hybrid: Combined approach (⭐ recommended)
+```
+
 ## 🚀 Features
 
 - **🧠 Knowledge Graph**: Automatic entity extraction and relationship mapping using LightRAG
@@ -17,6 +91,20 @@ A minimalist implementation of **HKUDS LightRAG** - a powerful Retrieval-Augment
 - **🔒 Complete Privacy**: Everything runs locally - no data leaves your machine
 - **⚡ Semantic Search**: Vector embeddings for intelligent document retrieval
 - **📱 Cross-Platform**: Works on macOS, Windows, and Linux
+
+## 📸 Screenshots
+
+### Main Interface
+![Main UI Interface](documents/ui-view.png)
+*Clean, modern web interface with document management and system status*
+
+### Chat Interface
+![Chat Interface](documents/chat-view.png)
+*Interactive chat where you can ask questions about your documents*
+
+### Knowledge Graph Visualization
+![Knowledge Graph](documents/graph-view.png)
+*Interactive knowledge graph showing entities and relationships with color-coded nodes*
 
 ## 📋 Requirements
 
