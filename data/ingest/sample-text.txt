@@ -1,0 +1,25 @@
+UNIQUE CONTENT FOR RAG TESTING - TEXT FILE
+
+Project Name: Phoenix Digital Transformation Initiative
+Project Code: PDT-2025-ALPHA
+Lead Architect: Dr. Sarah Chen
+Budget Allocation: $2.4 million USD
+
+EXECUTIVE SUMMARY:
+The Phoenix Digital Transformation Initiative aims to revolutionize customer engagement through AI-powered personalization engines. This groundbreaking project will implement quantum-resistant encryption protocols across all user touchpoints.
+
+KEY PERFORMANCE INDICATORS:
+- Customer satisfaction improvement: Target 35% increase
+- Response time optimization: Sub-200ms API responses
+- Data processing throughput: 10,000 transactions per second
+- Security compliance: SOC2 Type II certification
+
+TECHNICAL SPECIFICATIONS:
+- Primary Technology Stack: Next.js 15, FastAPI 0.104, PostgreSQL 16
+- Cloud Infrastructure: AWS Multi-Region deployment
+- Machine Learning Framework: TensorFlow 2.15 with custom neural networks
+- Integration Points: 47 third-party APIs including Stripe, Salesforce, and Azure AD
+
+UNIQUE IDENTIFIER FOR RETRIEVAL: "PHOENIX_TEXT_MARKER_7829"
+
+This text file contains specific information about the Phoenix project that should be easily retrievable through RAG queries about project budgets, technical specifications, or Dr. Sarah Chen's leadership role.
