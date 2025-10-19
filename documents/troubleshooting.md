@@ -1,5 +1,7 @@
 # 🔧 Troubleshooting Guide
 
+> **🏗️ Modular Architecture**: The system now uses separate modules for different functions. This guide covers issues specific to the new modular structure.
+
 ## 🚨 Common Issues and Solutions
 
 ### Installation Issues
@@ -364,6 +366,108 @@ python -c "import sys; print(sys.path)"
    - Port: 1024 to 65535
    - Model name: Must exist in Ollama
 
+### Modular Architecture Issues
+
+#### ❌ **Module Import Errors**
+**Error:** `ModuleNotFoundError: No module named 'utils.query_engine'`
+
+**Solutions:**
+```bash
+# Check if all modules exist
+ls -la utils/
+# Should show: rag_system.py, query_engine.py, graph_visualizer.py, llm_provider.py, document_ingestion.py
+
+# Test individual imports
+python -c "from utils.query_engine import QueryEngine"
+python -c "from utils.graph_visualizer import GraphVisualizer"
+```
+
+#### ❌ **Component Integration Issues**
+**Error:** `AttributeError: 'SimpleRAG' object has no attribute 'query_engine'`
+
+**Solutions:**
+1. **Check component initialization:**
+   ```bash
+   python -c "
+   from utils.rag_system import SimpleRAG
+   rag = SimpleRAG()
+   rag.setup_model('gemma3:12b')
+   print('Components initialized:', hasattr(rag, 'query_engine'))
+   "
+   ```
+
+2. **Verify modular structure:**
+   ```bash
+   # Check if all components are properly imported
+   python -c "
+   from utils.rag_system import SimpleRAG
+   print('Available components:', [attr for attr in dir(SimpleRAG()) if not attr.startswith('_')])
+   "
+   ```
+
+#### ❌ **Graph Visualization Issues**
+**Error:** `Failed to generate graph visualization`
+
+**Solutions:**
+1. **Check dependencies:**
+   ```bash
+   pip install networkx pyvis matplotlib
+   ```
+
+2. **Test graph visualizer:**
+   ```bash
+   python -c "
+   from utils.graph_visualizer import GraphVisualizer
+   viz = GraphVisualizer('data/rag_workspace')
+   stats = viz.get_graph_stats()
+   print('Graph stats:', stats)
+   "
+   ```
+
+3. **Check graph files:**
+   ```bash
+   ls -la data/rag_workspace/
+   # Should show: graph_chunk_entity_relation.graphml
+   ```
+
+#### ❌ **Query Engine Issues**
+**Error:** `QueryEngine not initialized`
+
+**Solutions:**
+1. **Test query engine directly:**
+   ```bash
+   python -c "
+   from utils.query_engine import QueryEngine
+   engine = QueryEngine('data/rag_workspace', 'gemma3:12b')
+   print('Query engine initialized')
+   "
+   ```
+
+2. **Check Ollama connection:**
+   ```bash
+   curl http://localhost:11434/api/tags
+   ```
+
+#### ❌ **Component Communication Issues**
+**Error:** `Components not communicating properly`
+
+**Solutions:**
+1. **Test full integration:**
+   ```bash
+   python -c "
+   from utils.rag_system import SimpleRAG
+   rag = SimpleRAG()
+   rag.setup_model('gemma3:12b')
+   print('✅ All components working together')
+   "
+   ```
+
+2. **Check working directory:**
+   ```bash
+   ls -la data/rag_workspace/
+   # Should contain LightRAG files
+   ```
+
 ### System-Specific Issues
 
 #### 🍎 **macOS Issues**
@@ -453,10 +557,27 @@ python main.py streamlit
 
 ### 4. Test Individual Components
 ```bash
-# Test imports
+# Test core modules
 python -c "import streamlit; print('Streamlit OK')"
 python -c "import ollama; print('Ollama OK')"
-python -c "from utils.rag_system import SimpleRAG; print('RAG OK')"
+
+# Test modular components
+python -c "from utils.rag_system import SimpleRAG; print('RAG System OK')"
+python -c "from utils.query_engine import QueryEngine; print('Query Engine OK')"
+python -c "from utils.graph_visualizer import GraphVisualizer; print('Graph Visualizer OK')"
+python -c "from utils.llm_provider import OllamaLLM; print('LLM Provider OK')"
+python -c "from utils.document_ingestion import DocumentIngestion; print('Document Ingestion OK')"
+```
+
+### 5. Test Modular Architecture
+```bash
+# Test component integration
+python -c "
+from utils.rag_system import SimpleRAG
+rag = SimpleRAG()
+print('✅ RAG System initialized')
+print('✅ Modular architecture working')
+"
 ```
 
 ### 5. Reset Everything

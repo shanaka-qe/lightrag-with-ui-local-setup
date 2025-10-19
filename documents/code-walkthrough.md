@@ -2,6 +2,8 @@
 
 A comprehensive guide to understanding the LightRAG with UI codebase architecture, components, and implementation details.
 
+> **🏗️ Modular Architecture**: The system has been refactored into clean, single-responsibility modules for better maintainability and scalability.
+
 ## 📋 Table of Contents
 
 1. [Project Architecture](#project-architecture)
@@ -134,39 +136,41 @@ if st.session_state.rag_system is None:
 - **State Manager**: Maintains application state
 - **Event Handler**: Processes user actions
 
-### **3. RAG System (`utils/rag_system.py`)**
+### **3. RAG System (`utils/rag_system.py`) - Main Orchestrator**
 
-**Purpose**: Core retrieval-augmented generation logic
+**Purpose**: Coordinates all components and provides unified API
 
 **Class Structure**:
 ```python
 class SimpleRAG:
     def __init__(self, working_dir: str = "data/rag_workspace"):
-        # Initialize components
-        # Load existing documents
-        # Setup logging
+        # Initialize modular components
+        # Setup LightRAG integration
+        # Configure working directory
     
     def setup_model(self, model_name: str = None):
-        # Initialize Ollama LLM
-        # Load model into memory
-        # Error handling
+        # Initialize LightRAG with Ollama
+        # Setup query engine
+        # Configure embedding functions
     
     def ingest_documents(self):
-        # Process documents from ingest folder
-        # Create document index
-        # Save to JSON storage
+        # Process documents with LightRAG
+        # Create knowledge graph
+        # Store entities and relationships
     
     def query(self, question: str, max_docs: int = 3, mode: str = "hybrid"):
-        # Retrieve relevant documents
-        # Generate context
-        # Query LLM
-        # Return response
+        # Delegate to query engine
+        # Return generated answer
     
     def get_stats(self):
-        # Return system statistics
-        # Model status
-        # Document counts
+        # Aggregate statistics from all components
+        # Return system health information
 ```
+
+**Modular Components**:
+- **QueryEngine**: Handles question answering
+- **GraphVisualizer**: Manages knowledge graph visualization
+- **DocumentIngestion**: Processes document files
 
 **Key Algorithms**:
 
@@ -214,11 +218,77 @@ def _load_documents(self):
 ```
 
 **Architecture Role**:
-- **Business Logic**: Core RAG functionality
-- **Data Manager**: Document storage and retrieval
-- **Query Processor**: Question answering logic
+- **Orchestrator**: Coordinates all subsystems
+- **API Gateway**: Provides unified interface
+- **Component Manager**: Manages modular components
 
-### **4. LLM Provider (`utils/llm_provider.py`)**
+### **4. Query Engine (`utils/query_engine.py`) - NEW**
+
+**Purpose**: Handles question answering using direct Ollama approach
+
+**Class Structure**:
+```python
+class QueryEngine:
+    def __init__(self, working_dir: str, model_name: str):
+        # Initialize with working directory and model
+        # Setup Ollama integration
+    
+    def query(self, question: str, mode: str = "hybrid"):
+        # Process query with async handling
+        # Load documents from LightRAG storage
+        # Generate answer using Ollama
+    
+    async def _query_async(self, question: str, mode: str):
+        # Async query implementation
+        # Load document content
+        # Create context and prompt
+        # Call Ollama directly
+```
+
+**Key Features**:
+- **Direct Ollama Integration**: Bypasses LightRAG query issues
+- **Async Handling**: Proper event loop management
+- **Context Building**: Smart document content selection
+- **Error Resilience**: Graceful failure handling
+
+**Architecture Role**:
+- **Query Processor**: Handles question answering
+- **Ollama Interface**: Direct API integration
+- **Context Builder**: Creates document context
+
+### **5. Graph Visualizer (`utils/graph_visualizer.py`) - NEW**
+
+**Purpose**: Handles knowledge graph visualization
+
+**Class Structure**:
+```python
+class GraphVisualizer:
+    def __init__(self, working_dir: str):
+        # Initialize with working directory
+        # Setup visualization tools
+    
+    def generate_visualization(self):
+        # Load knowledge graph from GraphML
+        # Create interactive HTML visualization
+        # Apply color coding and styling
+    
+    def get_graph_stats(self):
+        # Calculate graph statistics
+        # Return metrics (nodes, edges, density)
+```
+
+**Key Features**:
+- **Interactive Visualizations**: Using PyVis
+- **Color-coded Nodes**: By entity type
+- **Physics-based Layout**: Auto-arrangement
+- **Statistics**: Comprehensive graph metrics
+
+**Architecture Role**:
+- **Visualization Engine**: Creates interactive graphs
+- **Statistics Provider**: Calculates graph metrics
+- **Graph Processor**: Loads and processes GraphML files
+
+### **6. LLM Provider (`utils/llm_provider.py`)**
 
 **Purpose**: Ollama integration for local language models
 
@@ -437,10 +507,12 @@ python-docx>=0.8.11        # Word documents
 
 ### **Directory Structure**
 
-#### **`utils/`** - Core Business Logic
+#### **`utils/`** - Core Business Logic (Modular Architecture)
 ```
 utils/
-├── rag_system.py          # Main RAG implementation
+├── rag_system.py          # Main orchestrator
+├── query_engine.py         # Query processing with Ollama
+├── graph_visualizer.py    # Knowledge graph visualization
 ├── llm_provider.py        # Ollama LLM integration
 └── document_ingestion.py  # Document processing
 ```

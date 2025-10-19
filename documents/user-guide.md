@@ -436,8 +436,10 @@ lightrag-with-ui/
 ├── 📁 setup/                    # Setup scripts
 │   ├── 📄 setup_env.py          # Interactive setup
 │   └── 📄 setup.sh              # Automated setup
-├── 📁 utils/                    # Core functionality
-│   ├── 📄 rag_system.py         # RAG system logic
+├── 📁 utils/                    # Core functionality (Modular Architecture)
+│   ├── 📄 rag_system.py         # Main orchestrator
+│   ├── 📄 query_engine.py       # Query processing with Ollama
+│   ├── 📄 graph_visualizer.py   # Knowledge graph visualization
 │   ├── 📄 llm_provider.py       # AI model integration
 │   └── 📄 document_ingestion.py # Document processing
 ├── 📁 config/                   # Configuration
@@ -455,7 +457,12 @@ lightrag-with-ui/
 - **`data/ingest/`** - Put your documents here (PDFs, TXT files, etc.)
 - **`data/rag_workspace/`** - RAG system stores processed data here
 - **`setup/`** - Setup scripts for easy installation
-- **`utils/`** - Core application logic
+- **`utils/`** - Core application logic (modular architecture)
+  - `rag_system.py` - Main orchestrator
+  - `query_engine.py` - Query processing
+  - `graph_visualizer.py` - Knowledge graph visualization
+  - `llm_provider.py` - AI model integration
+  - `document_ingestion.py` - Document processing
 - **`config/`** - Configuration files
 
 ---

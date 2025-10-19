@@ -1,5 +1,7 @@
 # ⚡ Quick Reference Card
 
+> **🏗️ Modular Architecture**: The system now uses clean, single-responsibility modules for better maintainability.
+
 ## 🚀 Quick Commands
 
 ### Setup
@@ -135,9 +137,30 @@ RAG_MAX_TOKEN=4000
 - "What are the risks and mitigation?"
 - "Explain the technical architecture"
 
+## 🏗️ Modular Architecture
+
+### Core Modules
+| Module | Purpose | Key Features |
+|--------|---------|--------------|
+| `rag_system.py` | Main orchestrator | Coordinates all components |
+| `query_engine.py` | Query processing | Direct Ollama integration |
+| `graph_visualizer.py` | Graph visualization | Interactive knowledge graphs |
+| `llm_provider.py` | LLM integration | Ollama model management |
+| `document_ingestion.py` | Document processing | Multi-format support |
+
+### Module Testing
+```bash
+# Test individual components
+python -c "from utils.query_engine import QueryEngine; print('QueryEngine OK')"
+python -c "from utils.graph_visualizer import GraphVisualizer; print('GraphVisualizer OK')"
+python -c "from utils.rag_system import SimpleRAG; print('RAG System OK')"
+```
+
 ## 🔗 Useful Links
 
 - [Ollama Download](https://ollama.ai/download)
 - [Python 3.12 Download](https://www.python.org/downloads/)
 - [Streamlit Documentation](https://docs.streamlit.io/)
 - [LightRAG Framework](https://github.com/HKUDS/LightRAG)
+- [PyVis Documentation](https://pyvis.readthedocs.io/) - Graph visualization
+- [NetworkX Documentation](https://networkx.org/) - Graph processing
