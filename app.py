@@ -96,12 +96,7 @@ def main():
     
     # Sidebar for controls
     with st.sidebar:
-        st.header("⚙️ Controls")
-        
-        # Documents are auto-loaded, so we don't need this button
-        # if st.button("📚 Ingest Documents", disabled=not st.session_state.model_loaded):
-        #     if ingest_documents():
-        #         st.rerun()
+        st.header("⚙️ Controls")    
         
         # System status
         st.subheader("📊 System Status")

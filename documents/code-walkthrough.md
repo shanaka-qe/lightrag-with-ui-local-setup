@@ -66,15 +66,14 @@ The LightRAG with UI project follows a modular, layered architecture:
 
 ### **1. Main Application (`main.py`)**
 
-**Purpose**: Application entry point and mode routing
+**Purpose**: Streamlit launcher with process management
 
 **Key Functions**:
 ```python
 def main():
-    """Main entry point with argument parsing"""
-    # Handles: streamlit, cli, test modes
-    # Manages port conflicts
-    # Sets up logging
+    """Main entry point - launches Streamlit web interface"""
+    # Simple execution without argument parsing
+    # Direct Streamlit launch
 
 def kill_existing_processes():
     """Kills existing Streamlit processes on port 8501"""
@@ -86,16 +85,12 @@ def run_streamlit():
     # Subprocess management
     # Error handling
 
-def run_cli():
-    """Interactive command-line interface"""
-    # Simple question-answer loop
-    # Direct RAG system interaction
 ```
 
 **Architecture Role**: 
-- **Orchestrator**: Coordinates different application modes
-- **Process Manager**: Handles subprocess lifecycle
-- **Configuration Loader**: Initializes environment settings
+- **Streamlit Launcher**: Launches the web interface
+- **Process Manager**: Handles subprocess lifecycle and port conflicts
+- **Configuration Loader**: Uses environment settings for port/host
 
 ### **2. Streamlit Web Interface (`app.py`)**
 

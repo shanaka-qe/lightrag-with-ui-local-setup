@@ -1,19 +1,20 @@
-# 🤖 LightRAG with UI
+# 🤖 LightRAG Implementation with a Streamlit UI
 
-Author: Shanaka Fernando
-LinkedIn: https://www.linkedin.com/in/shanaka-qe/
+**Author**: Shanaka Fernando  
+**LinkedIn**: [linkedin.com/in/shanaka-qe](https://www.linkedin.com/in/shanaka-qe/)
 
-A powerful Retrieval-Augmented Generation (RAG) system that lets you chat with your documents using local AI models. Features a modern Streamlit web interface, automatic document processing, and support for multiple AI models via Ollama.
+A minimalist implementation of **HKUDS LightRAG** - a powerful Retrieval-Augmented Generation (RAG) system with **knowledge graph** support. Chat with your documents using local AI models powered by Ollama, featuring automatic entity extraction, relationship mapping, and intelligent semantic search.
 
 ## 🚀 Features
 
+- **🧠 Knowledge Graph**: Automatic entity extraction and relationship mapping using LightRAG
 - **🤖 Multiple AI Models**: Support for Gemma, Llama, Mistral, and more via Ollama
 - **📚 Smart Document Processing**: Automatic ingestion from PDFs, TXT, DOCX, CSV files
+- **🔍 4 Query Modes**: Naive, Local, Global, and Hybrid knowledge graph retrieval
 - **💬 Natural Conversations**: Ask questions about your documents in plain English
 - **🌐 Modern Web Interface**: Beautiful Streamlit UI with real-time chat
 - **🔒 Complete Privacy**: Everything runs locally - no data leaves your machine
-- **⚡ Fast Setup**: Automated installation and configuration
-- **🎯 Intelligent Retrieval**: Smart document search and context understanding
+- **⚡ Semantic Search**: Vector embeddings for intelligent document retrieval
 - **📱 Cross-Platform**: Works on macOS, Windows, and Linux
 
 ## 📋 Requirements
@@ -85,13 +86,7 @@ curl -fsSL https://ollama.ai/install.sh | sh
 5. **Run the system:**
    ```bash
    # Web interface (recommended)
-   python main.py streamlit
-   
-   # Command line interface
-   python main.py cli
-   
-   # Test the system
-   python main.py test
+   python main.py
    ```
 
 ## 📁 Project Structure
@@ -131,11 +126,11 @@ lightrag-with-ui/
 
 ## 🎯 Usage
 
-### Web Interface (Recommended)
+### Web Interface
 
 1. **Start the web interface:**
    ```bash
-   python main.py streamlit
+   python main.py
    ```
 
 2. **Open your browser to:** `http://localhost:8501`
@@ -145,12 +140,6 @@ lightrag-with-ui/
    - Add documents to `data/ingest/` folder or use the upload feature
    - Documents are automatically processed
    - Ask questions in the chat interface
-
-### Command Line Interface
-
-```bash
-python main.py cli
-```
 
 ### Adding Documents
 
@@ -237,9 +226,6 @@ ollama pull gemma2:2b  # For faster performance
 ## 🧪 Testing
 
 ```bash
-# Test the system
-python main.py test
-
 # Test individual components
 python -c "from utils.rag_system import SimpleRAG; print('✅ RAG system OK')"
 python -c "from utils.llm_provider import OllamaLLM; print('✅ LLM provider OK')"
