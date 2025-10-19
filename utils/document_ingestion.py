@@ -169,16 +169,3 @@ class DocumentIngestion:
         logger.info("Ingest directory cleared")
 
 
-# Example usage
-if __name__ == "__main__":
-    # Create ingestion instance
-    ingestion = DocumentIngestion()
-    
-    # Get all documents
-    documents = ingestion.get_documents()
-    
-    print(f"Found {len(documents)} documents:")
-    for doc in documents:
-        print(f"- {doc['filename']} ({doc['file_type']})")
-        print(f"  Content preview: {doc['content'][:100]}...")
-        print()

@@ -7,11 +7,9 @@ import logging
 from typing import List, Dict, Any, Optional
 from pathlib import Path
 import json
-import os
 
 from utils.llm_provider import OllamaLLM
 from utils.document_ingestion import DocumentIngestion
-from config.settings import LLM_CONFIG
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -242,33 +240,3 @@ Please provide a clear and direct answer. If the information is not available, p
         except Exception as e:
             logger.error(f"Cleanup failed: {e}")
 
-
-# Example usage
-if __name__ == "__main__":
-    # Create RAG system
-    rag = SimpleRAG()
-    
-    # Setup model
-    rag.setup_model("gemma3:12b")
-    
-    # Ingest documents
-    rag.ingest_documents()
-    
-    # Test queries
-    questions = [
-        "What is this document about?",
-        "Summarize the main points",
-        "What are the key findings?"
-    ]
-    
-    for question in questions:
-        try:
-            answer = rag.query(question)
-            print(f"Q: {question}")
-            print(f"A: {answer}")
-            print("-" * 50)
-        except Exception as e:
-            print(f"Error with question '{question}': {e}")
-    
-    # Cleanup
-    rag.cleanup()

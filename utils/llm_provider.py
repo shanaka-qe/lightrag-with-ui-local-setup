@@ -197,35 +197,3 @@ class OllamaLLM:
         logger.info("Ollama model remains loaded in Ollama server")
 
 
-# Example usage and testing
-if __name__ == "__main__":
-    # Create an instance of the Ollama LLM
-    ollama_llm = OllamaLLM()
-    
-    try:
-        # Load a model
-        print("Loading model...")
-        ollama_llm.load_model("gemma3:12b")
-        
-        # Test simple generation
-        print("\nTesting simple generation:")
-        prompt = "What is artificial intelligence?"
-        response = ollama_llm.generate(prompt)
-        print(f"Prompt: {prompt}")
-        print(f"Response: {response}")
-        
-        # Test chat format
-        print("\nTesting chat format:")
-        messages = [
-            {"role": "system", "content": "You are a helpful AI assistant."},
-            {"role": "user", "content": "Explain machine learning in simple terms."}
-        ]
-        chat_response = ollama_llm.chat(messages)
-        print(f"Chat response: {chat_response}")
-        
-    except Exception as e:
-        print(f"Error: {e}")
-        print("\nTroubleshooting:")
-        print("1. Make sure Ollama is installed: https://ollama.ai/download")
-        print("2. Start Ollama: ollama serve")
-        print("3. Pull a model: ollama pull gemma2:12b")

@@ -11,7 +11,7 @@ import time
 # Import our modules
 from utils.rag_system import SimpleRAG
 from utils.document_ingestion import DocumentIngestion
-from config.settings import STREAMLIT_CONFIG, LLM_CONFIG
+from config.settings import STREAMLIT_CONFIG
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

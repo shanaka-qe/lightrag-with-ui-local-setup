@@ -41,12 +41,12 @@ curl -fsSL https://ollama.ai/install.sh | sh
 
 **For macOS/Linux:**
 ```bash
-./setup.sh
+./setup/setup.sh
 ```
 
 **For Windows:**
 ```cmd
-setup.bat
+setup/setup.bat
 ```
 
 ### Manual Setup
@@ -74,7 +74,7 @@ setup.bat
 4. **Configure environment:**
    ```bash
    # Option 1: Interactive setup (recommended)
-   python setup_env.py
+   python setup/setup_env.py
    
    # Option 2: Manual setup
    cp env.example .env
@@ -111,7 +111,9 @@ lightrag-with-ui/
 ├── venv312/               # Python 3.12 virtual environment
 ├── requirements.txt       # Python dependencies
 ├── env.example            # Environment template
-└── setup_env.py           # Interactive environment setup
+└── setup/                 # Setup scripts
+    ├── setup_env.py       # Interactive environment setup
+    └── setup.sh           # Automated setup script
 ```
 
 ## 🎯 Usage
