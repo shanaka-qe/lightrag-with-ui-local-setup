@@ -14,6 +14,7 @@ from lightrag import LightRAG
 from lightrag.llm.ollama import _ollama_model_if_cache as ollama_model_if_cache, ollama_embed
 
 # Import our modular components
+from config.settings import RAG_CONFIG
 from utils.document_ingestion import DocumentIngestion
 from utils.graph_visualizer import GraphVisualizer
 from utils.query_engine import QueryEngine
@@ -99,14 +100,15 @@ class SimpleRAG:
                 def __init__(self):
                     self.embedding_dim = 768  # nomic-embed-text dimension
                     self.max_token_size = 8192
-                
+                    self.embed_model = RAG_CONFIG["embedding_model"]
+
                 async def __call__(self, texts: list[str]) -> list[list[float]]:
                     """Generate embeddings for a list of texts"""
                     import numpy as np
-                    
+
                     result = await ollama_embed(
                         texts=texts,
-                        embed_model="nomic-embed-text",
+                        embed_model=self.embed_model,
                         host="http://localhost:11434"
                     )
                     

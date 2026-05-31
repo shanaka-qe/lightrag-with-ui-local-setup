@@ -24,7 +24,7 @@ LLM_CONFIG = {
 # RAG Configuration
 RAG_CONFIG = {
     "working_dir": os.getenv("RAG_WORKING_DIR", "data/rag_workspace"),
-    "embedding_model": os.getenv("RAG_EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2"),
+    "embedding_model": os.getenv("RAG_EMBEDDING_MODEL", "nomic-embed-text"),
     "max_token": int(os.getenv("RAG_MAX_TOKEN", "2000")),
     "timeout": int(os.getenv("RAG_TIMEOUT", "30"))
 }
