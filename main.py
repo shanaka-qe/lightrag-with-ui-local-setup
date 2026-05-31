@@ -17,10 +17,10 @@ def kill_existing_processes():
     """Kill existing processes on the configured port"""
     try:
         # Kill processes on the specific port
-        subprocess.run([
-            "lsof", "-ti", f":{STREAMLIT_CONFIG['port']}", 
-            "|", "xargs", "kill", "-9"
-        ], shell=True, check=False)
+        subprocess.run(
+            f"lsof -ti :{STREAMLIT_CONFIG['port']} | xargs kill -9",
+            shell=True, check=False
+        )
         print(f"🔄 Killed existing processes on port {STREAMLIT_CONFIG['port']}")
     except:
         pass
